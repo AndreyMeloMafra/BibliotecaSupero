@@ -8,8 +8,6 @@ export const HeaderContainer = styled.View `
   flex-direction: row;
   justify-content: space-between;
 
-  padding: 30px 15px;
-
   background-color: ${colors.grey};
 
   border-top-width: 0px;
@@ -27,8 +25,8 @@ export const HeaderImage = styled.Image `
 `;
 
 export const HeaderSearchInputContainer = styled.View `
-  width: 60%;
-  height: 35px;
+  width: ${props => props.width ? props.width : "100%"};
+  height: 30px;
 
   flex-direction: row;
   justify-content: space-evenly;
@@ -36,9 +34,18 @@ export const HeaderSearchInputContainer = styled.View `
 
   border: 1px solid ${colors.black};
   border-radius: 5px;
+
+  margin-top: 10px;
 `;
 
 export const HeaderSearchInput = styled.TextInput `
-  width: 85%;
+  width: ${props => props.width ? props.width : "85%"};
   height: 45px;
+`;
+
+export const HeaderFiltersContainer = styled.View `
+  width: 60%
+  height: 100px;
+  
+  padding: 15px;
 `;

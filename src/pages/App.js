@@ -5,16 +5,25 @@ import { ButtonExpanded, ButtonExpandedText, Container, Title } from '../assets/
 import Header from '../Components/Header';
 import PageNavigator from '../Components/PageNavigator';
 import RenderBooks from '../Components/RenderBooks';
-import { getBooksFromAPI, getSearchBooksFromAPI } from '../configs/requests/index.library';
+import { getBooksFromAPI, gethBooksByYearFromAPI, getSearchBooksFromAPI } from '../configs/requests/index.library';
 
 function App() {
 
   const [books, setBooks] = useState([]);
   const [booksInitial, setBooksInitial] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
+  const [totalCountInitial, setTotalCountInitial] = useState(0);
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState('');
   const [skipCount, setSkipCount] = useState(0);
+  const [startYear, setStartYear] = useState();
+  const [endYear, setEndYear] = useState();
+
+  const getBooksByYear = useCallback(async (startYear, endYear) => {
+    const booksFromAPI = await gethBooksByYearFromAPI(startYear, endYear);
+    setBooks(booksFromAPI.data.items);
+    setTotalCount(booksFromAPI.data.totalCount);
+  }, [startYear, endYear])
 
   const searchBooks = useCallback(async () => {
     setLoading(true);
@@ -28,6 +37,7 @@ function App() {
     setBooks(booksFromAPI.data.items);
     setBooksInitial(booksFromAPI.data.items);
     setTotalCount(booksFromAPI.data.totalCount);
+    setTotalCountInitial(booksFromAPI.data.totalCount);
   }, [skipCount])
 
   useEffect(() => {
@@ -39,6 +49,7 @@ function App() {
   useEffect(() => {
     if (input.length < 1) {
       setBooks(booksInitial);
+      setTotalCount(totalCountInitial);
     }
   }, [input]);
 
@@ -52,6 +63,11 @@ function App() {
         input={input}
         setInput={setInput}
         searchBooks={searchBooks}
+        startYear={startYear}
+        endYear={endYear}
+        setStartYear={setStartYear}
+        setEndYear={setEndYear}
+        getBooksByYear={getBooksByYear}
       />
       {
         loading ? (

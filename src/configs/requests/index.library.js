@@ -10,6 +10,16 @@ export const getSearchBooksFromAPI = async(search) => {
     }
 }
 
+export const gethBooksByYearFromAPI = async(startYear, endYear) => {
+    try {
+        const response = await api.get(`/api/Livros?AnoInicial=${startYear}&AnoFinal=${endYear}&MaxResultCount=10`);
+
+        return response;
+    } catch (error) {
+        return error;
+    }
+}
+
 export const getBooksFromAPI = async(maxResultCount, skipCount) => {
     try {
         const response = await api.get(`/api/Livros?MaxResultCount=${maxResultCount}&SkipCount=${skipCount}`);
