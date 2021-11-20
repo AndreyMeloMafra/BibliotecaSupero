@@ -14,6 +14,10 @@ export const Container = styled.View `
 export const Title = styled.Text `
   font-size: 22px;
   font-weight: bold;
+  height: 30px;
+  margin-bottom: 15px;
+  width: 100%;
+  text-align: center;
 `;
 
 export const ButtonExpanded = styled.TouchableOpacity `

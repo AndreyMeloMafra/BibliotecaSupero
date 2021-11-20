@@ -21,6 +21,7 @@ function BookModal(props) {
         const bookUpdated = await updateBookFromAPI(book.id, book);
 
         if (bookUpdated.status === 204 || bookUpdated.status === 200) {
+            props.getBooks();
             Alert.alert("Sucesso!", "Livro atualizado com sucesso.")
         }
     }
@@ -29,6 +30,7 @@ function BookModal(props) {
         const deletedBook = await deleteBookFromAPI(book.id);
 
         if (deletedBook.status === 204 || deletedBook.status === 200) {
+            props.getBooks();
             Alert.alert("Sucesso!", "Livro deletado com sucesso.")
         }
     }
@@ -71,24 +73,24 @@ function BookModal(props) {
                         <BookCardTextContainerInput>
                             <BookCardTextInput
                                 placeholder={`Peso: ${book.peso}g`}
-                                onChangeText={weight => setBook({ ...book, peso: weight })}
+                                onChangeText={weight => setBook({ ...book, peso: parseInt(weight) })}
                                 value={book.peso.toString()}
                             />
                             <BookCardTextInput
                                 placeholder={`Comprimento: ${book.comprimento}cm`}
-                                onChangeText={length => setBook({ ...book, titulo: length })}
+                                onChangeText={length => setBook({ ...book, comprimento: parseInt(length) })}
                                 value={book.comprimento.toString()}
                             />
                         </BookCardTextContainerInput>
                         <BookCardTextContainerInput>
                             <BookCardTextInput
                                 placeholder={`Altura: ${book.altura}cm`}
-                                onChangeText={height => setBook({ ...book, altura: height })}
+                                onChangeText={height => setBook({ ...book, altura: parseFloat(height) })}
                                 value={book.altura.toString()}
                             />
                             <BookCardTextInput
                                 placeholder={`Largura: ${book.largura}cm`}
-                                onChangeText={width => setBook({ ...book, largura: width })}
+                                onChangeText={width => setBook({ ...book, largura: parseInt(width) })}
                                 value={book.largura.toString()}
                             />
                         </BookCardTextContainerInput>
@@ -100,15 +102,15 @@ function BookModal(props) {
                             />
                             <BookCardTextInput
                                 placeholder={`Ano: ${book.ano}`}
-                                onChangeText={year => setBook({ ...book, ano: year })}
+                                onChangeText={year => setBook({ ...book, ano: parseInt(year) })}
                                 value={book.ano.toString()}
                             />
                         </BookCardTextContainerInput>
                         <BookCardTextContainerInput>
                             <BookCardTextInput
                                 placeholder={`Editora: ${book.editora}`}
-                                onChangeText={publishe => setBook({ ...book, editora: publishe })}
-                                value={book.edit}
+                                onChangeText={publisher => setBook({ ...book, editora: publisher })}
+                                value={book.editora}
                             />
                             <BookCardTextInput
                                 placeholder={`Idioma: ${book.idioma}`}

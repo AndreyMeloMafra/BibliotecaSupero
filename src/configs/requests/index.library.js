@@ -66,3 +66,19 @@ export const deleteBookFromAPI = async(bookId) => {
         return error;
     }
 }
+
+export const createBookFromAPI = async(data) => {
+    try {
+        const configs = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+
+        const response = await api.post(`/api/Livros/`, data, configs);
+
+        return response;
+    } catch (error) {
+        return error;
+    }
+}

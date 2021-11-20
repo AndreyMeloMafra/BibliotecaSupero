@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Text, Touchable, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import colors from '../assets/colors';
 import { ButtonExpanded, ButtonExpandedText, Container, Title } from '../assets/styles';
 import Header from '../Components/Header';
@@ -7,7 +7,7 @@ import PageNavigator from '../Components/PageNavigator';
 import RenderBooks from '../Components/RenderBooks';
 import { getBooksFromAPI, gethBooksByYearFromAPI, getSearchBooksFromAPI } from '../configs/requests/index.library';
 
-function App() {
+function App({ navigation }) {
 
   const [books, setBooks] = useState([]);
   const [booksInitial, setBooksInitial] = useState([]);
@@ -20,6 +20,7 @@ function App() {
   const [endYear, setEndYear] = useState();
 
   const getBooksByYear = useCallback(async (startYear, endYear) => {
+    setLoading(true);
     const booksFromAPI = await gethBooksByYearFromAPI(startYear, endYear);
     setBooks(booksFromAPI.data.items);
     setTotalCount(booksFromAPI.data.totalCount);
@@ -76,6 +77,7 @@ function App() {
           <>
             <Title>Resultados encontrados: {totalCount}</Title>
             <RenderBooks
+              getBooks={getBooks}
               books={books}
             />
             <PageNavigator
@@ -86,7 +88,7 @@ function App() {
           </>
         )
       }
-      <ButtonExpanded>
+      <ButtonExpanded onPress={() => navigation.navigate('Create')}>
         <ButtonExpandedText>+</ButtonExpandedText>
       </ButtonExpanded>
     </Container>

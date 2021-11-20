@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { View } from 'react-native';
 import { ContentBooks, RenderBooksContainer } from '../../assets/styles/styled/RenderBooks';
 import BookCard from '../BookCard';
 import BookModal from '../BookModal';
@@ -10,11 +11,18 @@ function RenderBooks(props) {
 
     return (
         <ContentBooks>
-            <BookModal
-                book={props.books[bookIndex]}
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-            />
+            {
+                props.books.length > 0 ? (
+                    <BookModal
+                        book={props.books[bookIndex]}
+                        modalVisible={modalVisible}
+                        setModalVisible={setModalVisible}
+                        getBooks={props.getBooks}
+                    />
+                ) : (
+                    <View />
+                )
+            }
             <RenderBooksContainer
                 contentContainerStyle={{
                     justifyContent: "center",
